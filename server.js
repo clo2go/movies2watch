@@ -5,6 +5,8 @@ var exphbs = require('express-handlebars');
 var mysql = require('mysql');
 //express server
 var app = express();
+// window port environment
+var PORT = process.env.PORT || 3000;
 // parse application
 app.use(bodyParser.urlencoded({
 	extended: false
@@ -60,12 +62,10 @@ app.put('/update', function(req,res){
     });
 });
 
-var port = 3000;
-app.listen(port);
-console.log('running through the 3000 like Drake');
-
-
-
+// Starting our express server
+app.listen(PORT, function() {
+  console.log("App running through the " + PORT + " Like Drake!");
+});
 
 
 
