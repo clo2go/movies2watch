@@ -7,6 +7,7 @@ var mysql = require('mysql');
 var app = express();
 // window port environment
 var PORT = process.env.PORT || 3000;
+var connection;
 // parse application
 app.use(bodyParser.urlencoded({
 	extended: false
@@ -23,12 +24,17 @@ app.use(express.static (__dirname + '/public'));
 
 
 // mysql connect
-var connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: 'utboot',
-	database: 'movie_planner_db'
-});
+
+  if (process.env.JAWSDB_URL) {
+    connection = mysql.createConnection(process.env.JAWSDB_URL);
+  } else {
+    connection = mysql.createConnection({
+  	host: 'localhost',
+  	user: 'root',
+  	password: 'utboot',
+  	database: 'movie_planner_db'
+  });
+};
 
 connection.connect(function(err) {
 	if(err) {
@@ -39,6 +45,7 @@ connection.connect(function(err) {
 	console.log('connected as id ' + connection.threadId);
 });
 
+module.exports = connection;
 //GET movies data
 app.get('/', function(req,res) {
 	connection.query('SELECT * FROM movies;', function(err, data) {
