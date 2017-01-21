@@ -52,13 +52,13 @@ app.post('/create', function(req,res){
 	})
 })
 //  PUT new movie into list
-app.put('/update', function(req, results) {
+app.put('/update', function(req,res){
 
-	connection.query('UPDATE movies SET movie = ? WHERE id = ?;', [req.body.movie, req.body.id], function(err,result){
-		if (err) throw err;
-		res.redirect('/');
-	})
-})
+    connection.query('UPDATE movies SET movie = ? WHERE id = ?', [req.body.movie, req.body.id], function(err, result) {
+      if (err) throw err;
+      res.redirect('/');
+    });
+});
 
 var port = 3000;
 app.listen(port);
