@@ -74,6 +74,12 @@ app.listen(PORT, function() {
   console.log("App running through the " + PORT + " Like Drake!");
 });
 
+app.delete('/delete', function(req, res){
+  connection.query('DELETE FROM movies WHERE id = ?;', [req.body.id], function(err, results){
+    if (err) throw err;
+    res.redirect('/');
+  })
+})
 
 
 
